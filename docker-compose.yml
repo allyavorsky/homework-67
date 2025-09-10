@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: .
+    container_name: express-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    environment:
+      - MONGODB_URI=mongodb://db:27017/mydatabase
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongo-data:
